@@ -28,10 +28,13 @@ jobs:
           enable-cache: true
 
       - name: Install development environment
-        run: uv sync --group dev
+        run: uv sync --group dev --extra pixelator
 
       - name: Run pre-commit checks
-        run: uv run pre-commit run --all-files --show-diff-on-failure
+        run: uv run --extra pixelator pre-commit run --all-files --show-diff-on-failure
+
+      - name: Run tests
+        run: uv run --extra pixelator pytest -q
 
       - name: Build distributions
         run: uv build
